@@ -1,0 +1,677 @@
+= SightSeeing Activities API
+Cox And Kings
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+
+[[introduction]]
+= Introduction
+
+Cox and Kings Activites API is designed to provide partners with a set of API calls to enable the construction of a complete 
+tours and activities website, application or similar for integration into existing systems or create new channels.
+
+
+[[access-resources]]
+= Integration Steps
+
+Integration with Cox and Kings Supplier API's is done using our REST API using JSON and XML Format.
+
+Credentials are mandatory for accessing the API. This can be done by creating new API partner account.
+
+=== Demo VS Live API
+
+There are differences between Demo and Live API behavior.
+
+	-> Supplier Product Codes may differ in Live and Demo environments.
+	-> Test Bookings are only allowed in Demo environment.
+	-> The product content is limited in the Demo environment.
+	-> You need to have seperate Access Key for Demo and Live environments. For Live environment, this is a additional mandatory field which is used for verification purposes.
+	
+=== Data Caching
+
+	-> During integration, we highly recommend each partner to store the content response in order to reduce API Http requests, this will help in improved data loading performance on partner side.
+	-> The cached data needs to be updated atleast once in 24 hours.
+	
+=== Authorization
+
+There is a basic Authentication needed for using the API's. 
+
+	-> A Partner needs to send his Username and Password provided in the Authorization header in the request.
+	-> A Partner can use Postman or any REST Client to generate the HASH Value of the Username and Password.  
+	
+[[index-links]]
+= API Information	
+
+== Master
+
+=== List All Countries
+
+This API will list all the Countries and Country Code in the system. Country Code is one of the primary input parameter in many of the below Requests.
+
+Example of curl command:
+
+include::{snippets}/countries/curl-request.adoc[]
+
+Example of http request:
+
+include::{snippets}/countries/http-request.adoc[]
+
+Example of http response:
+
+include::{snippets}/countries/http-response.adoc[]
+
+Response fields description:
+
+include::{snippets}/countries/response-fields.adoc[]
+
+=== List All Cities
+
+This API will list all the Cities and the City Code(Region Code) in the system. The City Code is being used as input parameter in many Requests.
+
+Example of curl command:
+
+include::{snippets}/cities/curl-request.adoc[]
+
+Example of http request:
+
+include::{snippets}/cities/http-request.adoc[]
+
+Example of http response:
+
+include::{snippets}/cities/http-response.adoc[]
+
+Response fields description:
+
+include::{snippets}/cities/response-fields.adoc[]
+
+=== Get all Static Data
+
+This data contains all the activities content for most of the suppliers.
+
+Example of curl command:
+
+include::{snippets}/staticData/curl-request.adoc[]
+
+Example of http request:
+
+include::{snippets}/staticData/http-request.adoc[]
+
+Example of http response:
+
+include::{snippets}/staticData/http-response.adoc[]
+
+Response fields description:
+
+include::{snippets}/staticData/response-fields.adoc[]
+
+== SightSeeing Activites API's
+
+=== Search Request
+
+Search Request API call is used to get the list of activites available for all the suppliers.
+
+==== Dummy Json and XML for Search Request:
+ JSON: 
+ 	{
+  	  "countryCode": "string",
+  	  "endDate": "string",
+  	  "participantCount": [
+    	{
+      		"age": 0,
+      		"extension": "string",
+      		"qualifierName": "string",
+      		"quantity": 0
+    	}
+  	],
+  	  "priceCurrency": "string",
+  	  "regionCode": "string",
+  	  "startDate": "string"
+	}
+
+ XML: 
+ 	<?xml version="1.0"?>
+	<SearchRQBody>
+	  <countryCode>string</countryCode>
+	  <endDate>string</endDate>
+	  <participantCount>
+	    <age>1</age>
+	    <extension>string</extension>
+	    <qualifierName>string</qualifierName>
+	    <quantity>1</quantity>
+	  </participantCount>
+	  <priceCurrency>string</priceCurrency>
+	  <regionCode>string</regionCode>
+	  <startDate>string</startDate>
+	</SearchRQBody>
+ 	
+
+Example of curl command:
+
+include::{snippets}/search/curl-request.adoc[]
+
+Example of http request:
+
+include::{snippets}/search/http-request.adoc[]
+
+Example of http response:
+
+include::{snippets}/search/http-response.adoc[]
+
+Request fields description:
+
+include::{snippets}/search/request-fields.adoc[]
+
+
+=== Get Details Request
+
+Get Details Request API call is used to fetch the content for an specific selected Activity.
+
+==== Dummy JSON and XML for GetDetails Request
+
+ JSON: 
+		{
+  "accessCode": "string",
+  "countryCode": "string",
+  "endDate": "string",
+  "id": "string",
+  "name": "string",
+  "optionName": "string",
+  "participantCount": [
+    {
+      "age": 0,
+      "extension": "string",
+      "qualifierName": "string",
+      "quantity": 0
+    }
+  ],
+  "pricingCurrency": "string",
+  "rateList": [
+    {
+      "areaCost": "string",
+      "areaName": "string",
+      "areadId": "string"
+    }
+  ],
+  "regionCode": "string",
+  "serviceFee": "string",
+  "shippingCurrency": "string",
+  "shippingSupplierDetails": "string",
+  "shippingSupplierID": "string",
+  "startDate": "string",
+  "supplierId": "string",
+  "supplierProductCode": "string",
+  "supplierRateKey": "string",
+  "supplierReference": "string",
+  "totalCost": "string"
+}
+	
+ XML:
+<?xml version="1.0"?>
+<GetDetailsRQBody>
+  <accessCode>string</accessCode>
+  <countryCode>string</countryCode>
+  <endDate>string</endDate>
+  <id>string</id>
+  <name>string</name>
+  <optionName>string</optionName>
+  <participantCount>
+    <age>1</age>
+    <extension>string</extension>
+    <qualifierName>string</qualifierName>
+    <quantity>1</quantity>
+  </participantCount>
+  <pricingCurrency>string</pricingCurrency>
+  <rateList>
+    <areaCost>string</areaCost>
+    <areaName>string</areaName>
+    <areadId>string</areadId>
+  </rateList>
+  <regionCode>string</regionCode>
+  <serviceFee>string</serviceFee>
+  <shippingCurrency>string</shippingCurrency>
+  <shippingSupplierDetails>string</shippingSupplierDetails>
+  <shippingSupplierID>string</shippingSupplierID>
+  <startDate>string</startDate>
+  <supplierId>string</supplierId>
+  <supplierProductCode>string</supplierProductCode>
+  <supplierRateKey>string</supplierRateKey>
+  <supplierReference>string</supplierReference>
+  <totalCost>string</totalCost>
+</GetDetailsRQBody>
+
+Example of curl command:
+
+include::{snippets}/getdetails/curl-request.adoc[]
+
+Example of http request:
+
+include::{snippets}/getdetails/http-request.adoc[]
+
+Example of http response:
+
+include::{snippets}/getdetails/http-response.adoc[]
+
+Request fields description:
+
+include::{snippets}/getdetails/request-fields.adoc[]
+
+=== GetPolicies Request
+
+GetPolicies API call is used to get the Cancellation and all the policy information for the particular Activity.
+
+
+==== Dummy JSON and XML for GetPolicy Request
+
+ JSON:
+ {
+  "accessCode": "string",
+  "cityCode": "string",
+  "countryCode": "string",
+  "currencyCode": "string",
+  "endDate": "string",
+  "fromDate": "string",
+  "participantCount": [
+    {
+      "age": "string",
+      "qualifierInfo": "string",
+      "quantity": "string"
+    }
+  ],
+  "referenceCode": "string",
+  "sequence": "string",
+  "supplierId": "string",
+  "supplierProductCode": "string"
+}
+ 
+ XML:
+ <?xml version="1.0"?>
+<GetPolicyRQBody>
+  <accessCode>string</accessCode>
+  <cityCode>string</cityCode>
+  <countryCode>string</countryCode>
+  <currencyCode>string</currencyCode>
+  <endDate>string</endDate>
+  <fromDate>string</fromDate>
+  <participantCount>
+    <age>string</age>
+    <qualifierInfo>string</qualifierInfo>
+    <quantity>string</quantity>
+  </participantCount>
+  <referenceCode>string</referenceCode>
+  <sequence>string</sequence>
+  <supplierId>string</supplierId>
+  <supplierProductCode>string</supplierProductCode>
+</GetPolicyRQBody>
+
+
+Example of curl command:
+
+include::{snippets}/getpolicy/curl-request.adoc[]
+
+Example of http request:
+
+include::{snippets}/getpolicy/http-request.adoc[]
+
+Example of http response:
+
+include::{snippets}/getpolicy/http-response.adoc[]
+
+Request fields description:
+
+include::{snippets}/getpolicy/request-fields.adoc[]
+
+
+=== RePrice Request
+
+RePrice Request API call is used to get the current price for the selected Activity. This call has to made before making the Book Request API call.
+
+==== Dummy JSON and XML for Reprice Request
+
+ JSON: 
+ {
+  "accessCode": "string",
+  "countryCode": "string",
+  "endDate": "string",
+  "id": "string",
+  "name": "string",
+  "optionName": "string",
+  "participantCount": [
+    {
+      "age": "string",
+      "qualifierInfo": "string",
+      "quantity": "string"
+    }
+  ],
+  "pricingCurrency": "string",
+  "rateKey": "string",
+  "rateList": [
+    {
+      "areaCost": "string",
+      "areaName": "string",
+      "areadId": "string"
+    }
+  ],
+  "reference": "string",
+  "regionCode": "string",
+  "serviceFee": "string",
+  "shippingCurrency": "string",
+  "shippingSupplierDetails": "string",
+  "shippingSupplierID": "string",
+  "startDate": "string",
+  "supplierId": "string",
+  "supplierProductCode": "string",
+  "timeSlotCode": "string",
+  "totalCost": "string",
+  "tourLanguage": "string",
+  "tourLanguageListCode": "string"
+}
+
+ XML:
+ <?xml version="1.0"?>
+<RepriceRQBody>
+  <accessCode>string</accessCode>
+  <countryCode>string</countryCode>
+  <endDate>string</endDate>
+  <id>string</id>
+  <name>string</name>
+  <optionName>string</optionName>
+  <participantCount>
+    <age>string</age>
+    <qualifierInfo>string</qualifierInfo>
+    <quantity>string</quantity>
+  </participantCount>
+  <pricingCurrency>string</pricingCurrency>
+  <rateKey>string</rateKey>
+  <rateList>
+    <areaCost>string</areaCost>
+    <areaName>string</areaName>
+    <areadId>string</areadId>
+  </rateList>
+  <reference>string</reference>
+  <regionCode>string</regionCode>
+  <serviceFee>string</serviceFee>
+  <shippingCurrency>string</shippingCurrency>
+  <shippingSupplierDetails>string</shippingSupplierDetails>
+  <shippingSupplierID>string</shippingSupplierID>
+  <startDate>string</startDate>
+  <supplierId>string</supplierId>
+  <supplierProductCode>string</supplierProductCode>
+  <timeSlotCode>string</timeSlotCode>
+  <totalCost>string</totalCost>
+  <tourLanguage>string</tourLanguage>
+  <tourLanguageListCode>string</tourLanguageListCode>
+</RepriceRQBody>
+
+Example of curl command:
+
+include::{snippets}/reprice/curl-request.adoc[]
+
+Example of http request:
+
+include::{snippets}/reprice/http-request.adoc[]
+
+Example of http response:
+
+include::{snippets}/reprice/http-response.adoc[]
+
+Request fields description:
+
+include::{snippets}/reprice/request-fields.adoc[]
+
+=== Book Request
+
+Book Request API call is used to confirm the booking with the supplier for the selected Activity.
+
+==== Dummy JSON and XML for Book Request
+
+ JSON:
+ {
+  "accessCode": "string",
+  "activityName": "string",
+  "addons": [
+    {
+      "addonCode": "string",
+      "addonDescription": "string",
+      "addonName": "string",
+      "addonPricePerPerson": "string",
+      "addonQuantity": "string"
+    }
+  ],
+  "agentCountry": "string",
+  "agentEmail": "string",
+  "agentName": "string",
+  "agentPhone": "string",
+  "agentSource": "string",
+  "answers": [
+    {
+      "answer": "string",
+      "answerExample": "string",
+      "answerRequiredFlag": "string",
+      "answerType": "string",
+      "extraInfo": "string",
+      "questionID": "string",
+      "questionText": "string"
+    }
+  ],
+  "cancellationPolicy": [
+    {
+      "cancellationChargeType": "string",
+      "cancellationUnit": "string",
+      "cancellationfromValue": "string",
+      "rate": "string"
+    }
+  ],
+  "contactAddressBldgRoom": "string",
+  "contactAddressCountryCode": "string",
+  "contactAddressLine": "string",
+  "contactBirthDate": "string",
+  "contactEmail": "string",
+  "contactFirstName": "string",
+  "contactMiddleName": "string",
+  "contactPhoneNumber": "string",
+  "contactSurname": "string",
+  "contactTelCountryCode": "string",
+  "contactTitle": "string",
+  "countryCode": "string",
+  "id": "string",
+  "isoCurrency": "string",
+  "name": "string",
+  "participantCategory": [
+    {
+      "priceAmount": "string",
+      "qualifierInfo": "string"
+    }
+  ],
+  "participantInfo": [
+    {
+      "participantAge": 0,
+      "participantCategoryId": "string",
+      "participantGivenName": "string",
+      "participantMiddleName": "string",
+      "participantPhoneCountryCode": "string",
+      "participantQualifierInfo": "string",
+      "participantQuantity": 0,
+      "participantSurname": "string",
+      "participantTelephone": "string",
+      "participantTitle": "string"
+    }
+  ],
+  "pickUpDateTime": "string",
+  "pickUpLocation": "string",
+  "pickUpOtherInfo": "string",
+  "pricingCurrencyCode": "string",
+  "pricingSummaryAmount": "string",
+  "rate": "string",
+  "reference": "string",
+  "regionCode": "string",
+  "scheduledEndDate": "string",
+  "scheduledStartDate": "string",
+  "sequence": "string",
+  "shippingDetails": [
+    {
+      "currency": "string",
+      "details": "string",
+      "optionName": "string",
+      "rateList": [
+        {
+          "areaCost": "string",
+          "areaId": "string",
+          "areaName": "string"
+        }
+      ],
+      "serviceFee": "string",
+      "shippingId": "string",
+      "totalCost": "string"
+    }
+  ],
+  "startTime": "string",
+  "supplierBrandCode": "string",
+  "supplierID": "string",
+  "supplierProductCode": "string",
+  "taxAmount": "string",
+  "timeSlotCode": "string",
+  "tourLanguageCode": "string",
+  "tourLanguageListCode": "string"
+}
+
+ XML:
+ 
+<?xml version="1.0"?>
+<BookRQBody>
+  <accessCode>string</accessCode>
+  <activityName>string</activityName>
+  <addons>
+    <addonCode>string</addonCode>
+    <addonDescription>string</addonDescription>
+    <addonName>string</addonName>
+    <addonPricePerPerson>string</addonPricePerPerson>
+    <addonQuantity>string</addonQuantity>
+  </addons>
+  <agentCountry>string</agentCountry>
+  <agentEmail>string</agentEmail>
+  <agentName>string</agentName>
+  <agentPhone>string</agentPhone>
+  <agentSource>string</agentSource>
+  <answers>
+    <answer>string</answer>
+    <answerExample>string</answerExample>
+    <answerRequiredFlag>string</answerRequiredFlag>
+    <answerType>string</answerType>
+    <extraInfo>string</extraInfo>
+    <questionID>string</questionID>
+    <questionText>string</questionText>
+  </answers>
+  <cancellationPolicy>
+    <cancellationChargeType>string</cancellationChargeType>
+    <cancellationUnit>string</cancellationUnit>
+    <cancellationfromValue>string</cancellationfromValue>
+    <rate>string</rate>
+  </cancellationPolicy>
+  <contactAddressBldgRoom>string</contactAddressBldgRoom>
+  <contactAddressCountryCode>string</contactAddressCountryCode>
+  <contactAddressLine>string</contactAddressLine>
+  <contactBirthDate>string</contactBirthDate>
+  <contactEmail>string</contactEmail>
+  <contactFirstName>string</contactFirstName>
+  <contactMiddleName>string</contactMiddleName>
+  <contactPhoneNumber>string</contactPhoneNumber>
+  <contactSurname>string</contactSurname>
+  <contactTelCountryCode>string</contactTelCountryCode>
+  <contactTitle>string</contactTitle>
+  <countryCode>string</countryCode>
+  <id>string</id>
+  <isoCurrency>string</isoCurrency>
+  <name>string</name>
+  <participantCategory>
+    <priceAmount>string</priceAmount>
+    <qualifierInfo>string</qualifierInfo>
+  </participantCategory>
+  <participantInfo>
+    <participantAge>1</participantAge>
+    <participantCategoryId>string</participantCategoryId>
+    <participantGivenName>string</participantGivenName>
+    <participantMiddleName>string</participantMiddleName>
+    <participantPhoneCountryCode>string</participantPhoneCountryCode>
+    <participantQualifierInfo>string</participantQualifierInfo>
+    <participantQuantity>1</participantQuantity>
+    <participantSurname>string</participantSurname>
+    <participantTelephone>string</participantTelephone>
+    <participantTitle>string</participantTitle>
+  </participantInfo>
+  <pickUpDateTime>string</pickUpDateTime>
+  <pickUpLocation>string</pickUpLocation>
+  <pickUpOtherInfo>string</pickUpOtherInfo>
+  <pricingCurrencyCode>string</pricingCurrencyCode>
+  <pricingSummaryAmount>string</pricingSummaryAmount>
+  <rate>string</rate>
+  <reference>string</reference>
+  <regionCode>string</regionCode>
+  <scheduledEndDate>string</scheduledEndDate>
+  <scheduledStartDate>string</scheduledStartDate>
+  <sequence>string</sequence>
+  <shippingDetails>
+    <currency>string</currency>
+    <details>string</details>
+    <optionName>string</optionName>
+    <rateList>
+      <areaCost>string</areaCost>
+      <areaId>string</areaId>
+      <areaName>string</areaName>
+    </rateList>
+    <serviceFee>string</serviceFee>
+    <shippingId>string</shippingId>
+    <totalCost>string</totalCost>
+  </shippingDetails>
+  <startTime>string</startTime>
+  <supplierBrandCode>string</supplierBrandCode>
+  <supplierID>string</supplierID>
+  <supplierProductCode>string</supplierProductCode>
+  <taxAmount>string</taxAmount>
+  <timeSlotCode>string</timeSlotCode>
+  <tourLanguageCode>string</tourLanguageCode>
+  <tourLanguageListCode>string</tourLanguageListCode>
+</BookRQBody>
+
+Example of curl command:
+
+include::{snippets}/book/curl-request.adoc[]
+
+Example of http request:
+
+include::{snippets}/book/http-request.adoc[]
+
+Example of http response:
+
+include::{snippets}/book/http-response.adoc[]
+
+Request fields description:
+
+include::{snippets}/book/request-fields.adoc[]
+
+=== Cancel Request
+
+Cancel Request is used to cancel the particular Booking by the user. 
+
+	-> Many of our vendors support online cancellation and this can be done with the help of the Cancel Request.
+	-> Cancellation of booking needs to be done offline for some vendors. In this case, partner needs to contact us for offline cancellation.
+	
+	
+Example of curl command:
+
+include::{snippets}/cancel/curl-request.adoc[]
+
+Example of http request:
+
+include::{snippets}/cancel/http-request.adoc[]
+
+Example of http response:
+
+include::{snippets}/cancel/http-response.adoc[]
+
+Request fields description:
+
+include::{snippets}/cancel/request-fields.adoc[]
+	
+

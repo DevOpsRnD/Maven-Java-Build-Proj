@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<property name="PATH" value="@log.path@/logs/SiApi" />
+	
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		Log message format
+	    <encoder>
+	    	<pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %C %L - %m%n</pattern>
+	    </encoder>
+	</appender>
+  
+	<appender name="SAVE-TO-FILE"	class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${PATH}/SiApi.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %C %L - %m%n</Pattern>
+		</encoder>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			rollover daily
+			<fileNamePattern>${PATH}/archive.%d{yyyy-MM-dd}/SiApi.%d{yyyy-MM-dd}.%i.log
+                        </fileNamePattern>
+			<maxHistory>30</maxHistory>                         
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+	</appender>
+
+	<logger name="com.cnk.siapi" level="@logging.level.com.cnk.siapi@" additivity="false">
+		<appender-ref ref="SAVE-TO-FILE" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+	
+	<logger name="org.hibernate" level="error" />
+	<logger name="org.mongodb" level="error" />
+	<logger name="ch.qos.logback" level="error" />
+	<logger name="org.springframework" level="error" />
+	
+	<root level="@logging.level.root@">
+		<appender-ref ref="SAVE-TO-FILE" />
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</configuration>

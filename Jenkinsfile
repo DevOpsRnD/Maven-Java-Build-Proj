@@ -1,23 +1,15 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Build') {
+	 stages {
+        stage('Change dir stage') {
             steps {
-               withMaven(maven : 'Maven') {
+				dir("test") {
+					withMaven(maven : 'Maven') {
 						bat 'mvn clean install -Dmaven.test.skip=true'
 					}
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
-    }
+				}
+			}
+		}
+	}
 }
